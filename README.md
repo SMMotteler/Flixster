@@ -26,7 +26,7 @@ The following **stretch** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/MgnbHEo.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<iframe class="imgur-embed" width="100%" height="1376" frameborder="0" src="https://i.imgur.com/MgnbHEo.gifv#embed"></iframe>
 
 GIF created with [Kap](https://getkap.co/).
 
