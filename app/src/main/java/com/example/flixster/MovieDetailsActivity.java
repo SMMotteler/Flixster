@@ -11,17 +11,20 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.example.flixster.databinding.ActivityMovieDetailsBinding;
 import com.example.flixster.models.Movie;
 
 import org.parceler.Parcels;
 
 public class MovieDetailsActivity extends AppCompatActivity {
+
+    ActivityMovieDetailsBinding binding;
     Movie movie;
     TextView tvTitle;
     TextView tvOverview;
     RatingBar rbVoteAverage;
     ImageView moviePoster;
-
     // when a movie is clicked, this method runs
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         }
 
         // adds the photo to the container with a placeholder image
-        Glide.with(context).load(imageURL).placeholder(placeholder).into(moviePoster);
+        Glide.with(context).load(imageURL).placeholder(placeholder).transform(new RoundedCorners(70)).into(moviePoster);
 
     }
 }

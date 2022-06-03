@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.adapters.MovieAdapter;
+import com.example.flixster.databinding.ActivityMainBinding;
 import com.example.flixster.models.Movie;
 
 import org.json.JSONArray;
@@ -22,26 +24,34 @@ import java.util.List;
 import okhttp3.Headers;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String CURRENTLY_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=36189278045f2555d20c24f04db5cbfd";
+    public String CURRENTLY_PLAYING_URL;
     public static final String TAG = "MainActivity";
 
     List<Movie> movies;
 
+    ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+       View view = binding.getRoot();
+       setContentView(view);
+
+        CURRENTLY_PLAYING_URL = String.format("https://api.themoviedb.org/3/movie/now_playing?api_key=%s", getString(R.string.movie_key));
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        RecyclerView rvMovies = findViewById(R.id.rvMovies);
+        // setContentView(R.layout.activity_main);
+        // was RecyclerView rvMovies = findViewById(R.id.rvMovies); - replaced with binding
         movies = new ArrayList<>();
 
         // create the adapter
         MovieAdapter movieAdapter = new MovieAdapter(this, movies);
 
         // set the adapter on the recycler view
-        rvMovies.setAdapter(movieAdapter);
+        binding.rvMovies.setAdapter(movieAdapter);
 
         // set a Layout Manager on the recycler view
-        rvMovies.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvMovies.setLayoutManager(new LinearLayoutManager(this));
 
         // gets the information from the API with asynchronous network requests
         AsyncHttpClient client = new AsyncHttpClient();

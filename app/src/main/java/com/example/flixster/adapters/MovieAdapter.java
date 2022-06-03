@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.flixster.MovieDetailsActivity;
 import com.example.flixster.R;
 import com.example.flixster.models.Movie;
@@ -95,7 +96,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             }
 
             // adds the photo to the container with a placeholder image
-            Glide.with(context).load(imageURL).placeholder(placeholder).into(ivPoster);
+            Glide.with(context).load(imageURL).placeholder(placeholder).centerCrop().transform(new RoundedCorners(70)).into(ivPoster);
         }
 
         // method that goes to the MovieDetails activity when the movie is clicked
