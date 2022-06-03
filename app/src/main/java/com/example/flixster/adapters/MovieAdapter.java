@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.flixster.R;
-import com.example.flixster.detailed_activities.Movie_Details_Activity;
 import com.example.flixster.models.Movie;
 
 import org.parceler.Parcels;
@@ -97,9 +96,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION){
                 Movie movie = movies.get(position);
-                Intent showDetails = new Intent(context, Movie_Details_Activity.class);
-                showDetails.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
-                context.startActivity(showDetails);
+//                Intent showDetails = new Intent(context, Movie_Details_Activity.class);
+//                showDetails.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
+//                context.startActivity(showDetails);
             }
         }
     }
