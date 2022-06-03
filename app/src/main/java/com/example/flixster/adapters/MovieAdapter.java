@@ -64,6 +64,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         TextView tvOverview;
         ImageView ivPoster;
 
+        // initializes the containers for the title, overview blurb, and poster, as well as the OnClickListener
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
@@ -72,13 +73,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             itemView.setOnClickListener(this);
         }
 
+        // adds the movie information to the holder
         public void bind(Movie movie) {
+            // gets the title and overview blurb of the movie
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
 
             String imageURL;
             int placeholder;
 
+            // based on the orientation of the phone, initializes the placeholder and image to the correct
+            // styles (backdrop photo and backdrop placeholder for landscape, poster and portrait placeholder
+            // for portrait)
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
                 imageURL = movie.getBackdropPath();
                 placeholder = R.drawable.flicks_backdrop_placeholder;
@@ -88,10 +94,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                 placeholder = R.drawable.flicks_movie_placeholder;
             }
 
-            // Glide.with(context).load(movie.getPosterPath()).placeholder(R.drawable.movie_placeholder).into(ivPoster);
+            // adds the photo to the container with a placeholder image
             Glide.with(context).load(imageURL).placeholder(placeholder).into(ivPoster);
         }
 
+        // method that goes to the MovieDetails activity when the movie is clicked
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();

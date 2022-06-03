@@ -43,24 +43,35 @@ public class MainActivity extends AppCompatActivity {
         // set a Layout Manager on the recycler view
         rvMovies.setLayoutManager(new LinearLayoutManager(this));
 
+        // gets the information from the API with asynchronous network requests
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(CURRENTLY_PLAYING_URL, new JsonHttpResponseHandler() {
+
+            // if the information can be fetched, return a success message and add
+            // the information of the movies to the movies ArrayList, then call movieAdapter
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.d(TAG, "onSuccess");
+
                 JSONObject jsonObject = json.jsonObject;
+                // If the JSON Array "results" exists, return a message with the
+                // results and continue with the code
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
                     Log.i(TAG, "Results: "+ results.toString());
                     movies.addAll(Movie.fromJsonArray(results));
                     movieAdapter.notifyDataSetChanged();
                     Log.i(TAG, "Movies: "+ results.toString());
-                } catch (JSONException e) {
+                }
+                // If the array doesn't exist, catch the exception and return a message logging
+                // the error and the stack trace
+                catch (JSONException e) {
                     Log.e(TAG, "Hit json exception", e);
                     e.printStackTrace();
                 }
             }
 
+            // if the information can't be fetched, return a failure message
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.d(TAG, "onFailure");

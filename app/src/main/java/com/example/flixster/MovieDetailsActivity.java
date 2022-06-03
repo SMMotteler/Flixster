@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -22,25 +21,36 @@ public class MovieDetailsActivity extends AppCompatActivity {
     TextView tvOverview;
     RatingBar rbVoteAverage;
     ImageView moviePoster;
+
+    // when a movie is clicked, this method runs
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
+        // initializes the containers for the title, overview blurb, average rating, and poster
         tvTitle = (TextView)findViewById(R.id.tvTitle);
         tvOverview = (TextView)findViewById(R.id.tvOverview);
         rbVoteAverage = (RatingBar)findViewById(R.id.rbVoteAverage);
         moviePoster = (ImageView)findViewById(R.id.moviePoster);
 
+        // unwraps the parcel containing the movie and logs its information
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
         Log.d("MovieDetailsActivity", String.format("Showing details for '%s'", movie.getTitle()));
 
+        // adds the movie information to the holder
+
+        // gets the title and overview blurb of the movie
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
 
+        // edits the rating to work for the container: out of 5 rather than out of 2
         float averageRating = movie.getVoteAverage().floatValue();
         rbVoteAverage.setRating(averageRating/2.0f);
 
+        // based on the orientation of the phone, initializes the placeholder and image to the correct
+        // styles (backdrop photo and backdrop placeholder for landscape, poster and portrait placeholder
+        // for portrait)
         String imageURL;
         int placeholder;
         Context context = this;
@@ -53,7 +63,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             placeholder = R.drawable.flicks_movie_placeholder;
         }
 
-        // Glide.with(context).load(movie.getPosterPath()).placeholder(R.drawable.movie_placeholder).into(ivPoster);
+        // adds the photo to the container with a placeholder image
         Glide.with(context).load(imageURL).placeholder(placeholder).into(moviePoster);
 
     }

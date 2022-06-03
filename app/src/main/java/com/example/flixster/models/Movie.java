@@ -21,6 +21,8 @@ public class Movie {
     // constructor with no arguments for the Parcel
     public Movie() {}
 
+    // regular constructor setting the variables to the correct values for the movie represented by the
+    // JSONObject
     public Movie(JSONObject jsonObject) throws JSONException {
         backdropPath = jsonObject.getString("backdrop_path");
         posterPath = jsonObject.getString("poster_path");
@@ -29,6 +31,7 @@ public class Movie {
         voteAverage = jsonObject.getDouble("vote_average");
     }
 
+    // creates a list of JSONObjects representing movies from a JSONArray of movie information
     public static List<Movie> fromJsonArray(JSONArray movieJsonArray) throws JSONException {
         List<Movie> movies = new ArrayList<>();
                 for (int j = 0; j< movieJsonArray.length(); j++){
@@ -37,9 +40,11 @@ public class Movie {
                 return movies;
     }
 
+    // getter methods for the movie's variables, with complete URLs for the photo paths
     public String getBackdropPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", backdropPath);
     }
+
     public String getPosterPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);
     }
